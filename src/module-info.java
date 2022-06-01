@@ -4,7 +4,10 @@ module SalesManagerFX {
 	requires javafx.graphics;
 	requires javafx.base;
 	
-	opens application to javafx.graphics, javafx.fxml;
-//	opens application.controller to javafx.fxml;
+	opens app to javafx.graphics, javafx.fxml;
+	opens entities to javafx.base;
+	exports app.controller to javafx.fxml;
+	opens app.controller to javafx.fxml;
+//	exports application.controller to javafx.fxml; opens application.controller to javafx.fxml;
 	
 }
