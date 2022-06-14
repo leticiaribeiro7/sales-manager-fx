@@ -17,8 +17,10 @@ package entities;
  *
  */
 public class User {
+	protected String name;
 	protected String login;
 	protected String password;
+	//private String position;
 	protected Integer id;
 	private static Integer latestID = 1;
 	
@@ -27,19 +29,32 @@ public class User {
 	 * @param login
 	 * @param password
 	 */
-	public User(String login, String password) {
+	public User(String name, String login, String password) {
+		this.name = name;
 		this.login = login;
 		this.password = password;
 		this.id = latestID;
 		latestID++;
 	}
+	
+	
+	/**
+	 * Sobrecarga de construtor vazio.
+	 */
+	public User() {
+		this.id = latestID;
+		latestID++;
+	}
+	
+	
 	/**
 	 * Sobrecarga de construtor que recebe id (utilizado para testar edição de objetos).
 	 * @param login
 	 * @param password
 	 * @param id
 	 */
-	public User(String login, String password, int id) {
+	public User(String name, String login, String password, int id) {
+		this.name = name;
 		this.login = login;
 		this.password = password;
 		this.id = id;
@@ -60,6 +75,16 @@ public class User {
 	}
 	public Integer getId() {
 		return id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getUserType() {
+		return this.getClass().getSimpleName();
 	}
 	
 }

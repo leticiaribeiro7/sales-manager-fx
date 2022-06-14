@@ -32,6 +32,7 @@ public class SupplierDAO{
 		for(Supplier sup : suppliers) {
 			if(sup.getId() == supplier.getId()) {
 				edit(supplier);
+				return;
 			}
 		} create(supplier);
 	}

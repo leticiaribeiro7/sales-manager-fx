@@ -55,6 +55,10 @@ public class Product {
 		this.quantity = quantity;
 	}
 
+	
+	
+	public Product() {
+	}
 
 
 	public String getName() {
@@ -90,6 +94,9 @@ public class Product {
 	public void setQuantity(double quantity) {
 		this.quantity = quantity;
 	}
-	
+	@Override
+	public String toString() {
+		return this.name;
+	}
 	
 }

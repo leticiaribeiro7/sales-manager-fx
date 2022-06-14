@@ -19,8 +19,10 @@ package entities;
 public class Manager extends User {
 	
 
-	public Manager(String login, String password) {
-		super(login, password);
+	public Manager(String name, String login, String password) {
+		this.name = name;
+		this.login = login;
+		this.password = password;
 	}
 	
 	/**
@@ -29,8 +31,16 @@ public class Manager extends User {
 	 * @param password
 	 * @param id
 	 */
-	public Manager(String login, String password, int id) {
-		super(login, password, id);
+	public Manager(String name, String login, String password, int id) {
+		this.name = name;
+		this.login = login;
+		this.password = password;
+		this.id = id;
+	}
+	
+	
+	
+	public Manager() {
 	}
 	
 	

@@ -18,6 +18,7 @@ public class UserDAO {
 		for(User u : users) {
 			if(u.getId() == user.getId()) {
 				edit(user);
+				return;
 			}
 		} create(user);
 	}

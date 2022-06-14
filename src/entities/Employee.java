@@ -22,8 +22,10 @@ public class Employee extends User {
 	 * @param login
 	 * @param password
 	 */
-	public Employee(String login, String password) {
-		super(login, password);
+	public Employee(String name, String login, String password) {
+		this.name = name;
+		this.login = login;
+		this.password = password;
 	}
 	
 	/**
@@ -32,8 +34,15 @@ public class Employee extends User {
 	 * @param password
 	 * @param id
 	 */
-	public Employee(String login, String password, int id) {
-		super(login, password, id);
+	public Employee(String name, String login, String password, int id) {
+		this.name = name;
+		this.login = login;
+		this.password = password;
+		this.id = id;
+	}
+	
+	
+	public Employee() {
 	}
 	
 	public Integer getId() {
