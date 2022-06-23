@@ -1,5 +1,7 @@
 package app.controller;
 
+import java.time.LocalDate;
+
 import app.model.ProductDAO;
 import entities.Client;
 import entities.Product;
@@ -40,15 +42,28 @@ public class AddOrEditProductController {
 	public void setProductsTable(TableView<Product> productsTable) {
 		this.productsTable = productsTable;
 	}
-
-	// Adiciona ou edita producte quando clica em confirmar
+	
+	
+	/**
+	 * Pega a data do datepicker
+	 */
+	public LocalDate getDate() {
+		LocalDate date = expiration.getValue();
+		return date;
+	}
+	
+	
+	
+	/**
+		Adiciona ou edita produto quando clica em confirmar 
+	 */
     public void onActionConfirmar() {
 
     //	if (validateData() == true) {
     		
     		product.setName(textFieldName.getText());
     		product.setQuantity(Double.parseDouble(textFieldQuantity.getText()));
-    	//	product.setExpiration(expiration.getText());
+    		product.setExpiration(getDate());
     		
     		ProductDAO.addOrEdit(product);
     		productsTable.refresh();
@@ -57,12 +72,17 @@ public class AddOrEditProductController {
     //	}
     }
   
-    // Fecha a caixa de dialogo
+    /**
+     * Fecha a caixa de diálogo
+     */
     public void onActionCancelar() {
     	dialogStage.close();
     }
 
-	// Insere os dados do produto (caso ja tenha) nos campos quando for editar
+	/**
+	 * Insere os dados do produto (caso ja tenha) nos campos quando for editar
+	 */
+	
 	public void setProduct(Product product) {
 		this.product = product;
 		this.textFieldName.setText(product.getName());
@@ -76,4 +96,7 @@ public class AddOrEditProductController {
 //	public boolean validateData() {
 //
 //	}
+	
+	
+	
 }

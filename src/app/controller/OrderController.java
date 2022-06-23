@@ -91,7 +91,7 @@ public class OrderController {
 			
 		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setContentText("Selecione um ordere");
+			alert.setContentText("Selecione um prato");
 			alert.show();
 		}
 	}

@@ -32,7 +32,7 @@ public class Order {
 	
 	
 	
-	public Order(String name, double price, Category category, String description, List<Ingredient> ingredients) {
+	public Order(String name, Double price, Category category, String description, List<Ingredient> ingredients) {
 		this.name = name;
 		this.price = price;
 		this.category = category;
@@ -51,7 +51,7 @@ public class Order {
 	 * @param products
 	 * @param id
 	 */
-	public Order(String name, double price, Category category, List<Ingredient> ingredients, Integer id) {
+	public Order(String name, Double price, Category category, List<Ingredient> ingredients, Integer id) {
 		this.name = name;
 		this.price = price;
 		this.category = category;
@@ -61,6 +61,8 @@ public class Order {
 
 
 	public Order() {
+		this.id = latestId;
+		Order.latestId++;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -78,7 +80,7 @@ public class Order {
 	public Double getPrice() {
 		return price;
 	}
-	public void setPrice(double price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 

@@ -128,8 +128,8 @@ public class MainController implements Initializable {
 		ingredientsList.add(ing1); ingredientsList.add(ing2);
 		ingredientsList2.add(ing3);
 		
-		Order order1 = new Order("Espaguete", 18, Category.LUNCH, "Descrição", ingredientsList);
-		Order order2 = new Order("Refrigerante", 5, Category.DRINKS, "Descrição", ingredientsList2);
+		Order order1 = new Order("Espaguete", 18.00, Category.LUNCH, "Descrição", ingredientsList);
+		Order order2 = new Order("Refrigerante", 5.00, Category.DRINKS, "Descrição", ingredientsList2);
 		
 		OrderDAO.addOrEdit(order1);
 		OrderDAO.addOrEdit(order2);

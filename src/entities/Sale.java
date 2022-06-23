@@ -28,6 +28,7 @@ public class Sale {
 	private List<Order> orders = new ArrayList<>();
 	private double price;
 	private paymentMethod paymentMethod;
+	private Client client;
 	private Integer id;
 	private static Integer latestId = 1;
 	
@@ -59,6 +60,11 @@ public class Sale {
 		
 	}
 
+
+	public Sale() {
+		this.id = latestId;
+		Sale.latestId++;
+	}
 
 	public LocalDate getDate() {
 		return date;
@@ -97,7 +103,14 @@ public class Sale {
 	public Integer getId() {
 		return this.id;
 	}
-	
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
 
 
 }

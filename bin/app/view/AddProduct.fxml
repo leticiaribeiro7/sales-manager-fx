@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.ProductController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.AddOrEditProductController">
    <children>
       <GridPane layoutX="142.0" layoutY="112.0" prefHeight="197.0" prefWidth="337.0">
          <columnConstraints>
@@ -28,7 +28,7 @@
             <Label text="Validade" GridPane.rowIndex="2" />
             <TextField fx:id="textFieldName" GridPane.columnIndex="1" />
             <TextField fx:id="textFieldQuantity" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <DatePicker fx:id="expiration" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <DatePicker fx:id="expiration" onAction="#getDate" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <Button fx:id="buttonConfirmar" layoutX="382.0" layoutY="354.0" mnemonicParsing="false" onAction="#onActionConfirmar" text="Confirmar" />

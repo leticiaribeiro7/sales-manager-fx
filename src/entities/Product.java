@@ -56,8 +56,12 @@ public class Product {
 	}
 
 	
-	
+	/**
+	 * Construtor sem parâmetros para uso da interface gráfica
+	 */
 	public Product() {
+		this.id = latestId;
+		Product.latestId++;
 	}
 
 

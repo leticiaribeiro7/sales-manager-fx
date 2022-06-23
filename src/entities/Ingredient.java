@@ -36,7 +36,9 @@ public class Ingredient {
 	public void setQuantity(Double quantity) {
 		this.quantity = quantity;
 	}
-	
+	public UnitOfMeasurement getUnit() {
+		return this.measurement;
+	}
 	
 }
 

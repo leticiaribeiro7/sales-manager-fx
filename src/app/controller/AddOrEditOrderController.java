@@ -13,6 +13,7 @@ import constants.UnitOfMeasurement;
 import entities.Ingredient;
 import entities.Order;
 import entities.Product;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,12 +22,15 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 public class AddOrEditOrderController {
 
-	//
+	// Ingredientes
+	
     @FXML
     private ComboBox<Category> comboBoxCategory;
 
@@ -34,21 +38,19 @@ public class AddOrEditOrderController {
     private ComboBox<UnitOfMeasurement> comboBoxMedida;
 
     @FXML
-    private ComboBox<Integer> comboBoxProduct;
+    private ComboBox<Product> comboBoxProduct;
 
-    //
     @FXML
     private TableView<Ingredient> ingredientsTable;
-    
-    @FXML
-    private TableColumn<Ingredient, UnitOfMeasurement> measurement;
 
     @FXML
     private TableColumn<Ingredient, String> product;
 
     @FXML
     private TableColumn<Ingredient, Double> quantity;
-    //
+    
+    
+    // Prato
 
     @FXML
     private TextField textFieldDescription;
@@ -62,54 +64,55 @@ public class AddOrEditOrderController {
     @FXML
     private TextField textFieldQuantity;
     
+    
     private Stage dialogStage;
     
     private Order order;
     
     private TableView<Order> ordersTable;
     
-    private ObservableList<Integer> obsProduct = FXCollections.observableArrayList();
-    private ObservableList<Ingredient> obsIng = FXCollections.observableArrayList();
+    private ObservableList<Product> obsProduct;
+    private ObservableList<Ingredient> obsIng;
+    
+    private ObservableList<UnitOfMeasurement> obsMedida = FXCollections.observableArrayList(UnitOfMeasurement.values());
+    private ObservableList<Category> obsCat = FXCollections.observableArrayList(Category.values());
     
     private List<Ingredient> ingredients = new ArrayList<>();
 
     @FXML
     public void initialize() {
-    	comboBoxCategory.getItems().setAll(Category.values());
-    	comboBoxMedida.getItems().setAll(UnitOfMeasurement.values());
-    	
-    	for (Product p : ProductDAO.list()) {
-    		obsProduct.add(p.getId());
-    	}
+    	loadBoxes();
+    }
+    
+    
+    public void loadBoxes() {
+    	comboBoxCategory.setItems(obsCat);
+    	comboBoxMedida.setItems(obsMedida);
+    	obsProduct = FXCollections.observableArrayList(ProductDAO.list());
     	
     	
     	comboBoxProduct.setItems(obsProduct);
-    	obsIng.addAll(ingredients);
-    	ingredientsTable.setItems(obsIng);
-
     }
     
-    
-    
-    public void loadIngredients() {
+    public ObservableList<Ingredient> loadIngredients() {
     	product.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("product"));
-		measurement.setCellValueFactory(new PropertyValueFactory<Ingredient, UnitOfMeasurement>("measurement"));
 		quantity.setCellValueFactory(new PropertyValueFactory<Ingredient, Double>("quantity"));
-    	
-		// Achando o produto de acordo ao id colocado pelo usuario na combobox
-		Product prod = null;
-		for (Product p : ProductDAO.list()) {
-			if (p.getId() == comboBoxProduct.getValue()) {
-				prod = p;
-			}
-		}
 		
+		
+		// Cria ingrediente e add na lista
 		ingredients.add(new Ingredient(
-				prod,
+				comboBoxProduct.getValue(),
 				Double.parseDouble(textFieldQuantity.getText()),
 				comboBoxMedida.getValue()));
 		
+		
+    	obsIng = FXCollections.observableArrayList(ingredients);
+    	ingredientsTable.setItems(obsIng);
+    	return obsIng;
+		
     }
+    
+    
     
     public void onActionAddIngredient() {
     	loadIngredients();
@@ -117,11 +120,20 @@ public class AddOrEditOrderController {
     }
     
     public void onActionConfirmar() {
-    	
+		order.setName(textFieldName.getText());
+		order.setPrice(Double.parseDouble(textFieldPrice.getText()));
+		order.setDescription(textFieldDescription.getText());
+		order.setIngredients(ingredients);
+		order.setCategory(comboBoxCategory.getValue());
+		
+		OrderDAO.addOrEdit(order);
+
+		ordersTable.refresh();
+		dialogStage.close();
     }
     
     public void onActionCancelar() {
-    	
+    	dialogStage.close();
     }
 
 
@@ -139,8 +151,7 @@ public class AddOrEditOrderController {
 		this.ordersTable = ordersTable;
 		
 	}
-    
-    
+     
     
     
 }
