@@ -47,7 +47,7 @@
                   <FontIcon iconLiteral="fas-book" />
                </graphic>
             </Button>
-            <Button graphicTextGap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="31.0" prefWidth="164.0" stylesheets="@../application.css" text="Fornecedores">
+            <Button graphicTextGap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#switchToSuppliers" prefHeight="31.0" prefWidth="164.0" stylesheets="@../application.css" text="Fornecedores">
                <graphic>
                   <FontIcon iconLiteral="fas-handshake" iconSize="20" />
                </graphic>

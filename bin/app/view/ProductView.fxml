@@ -4,14 +4,14 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="508.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.ProductController">
    <children>
-      <TableView fx:id="productsTable" layoutX="82.0" layoutY="80.0" prefHeight="323.0" prefWidth="582.0">
+      <TableView fx:id="productsTable" layoutX="66.0" layoutY="81.0" prefHeight="358.0" prefWidth="623.0">
         <columns>
           <TableColumn fx:id="id" prefWidth="75.0" text="id" />
           <TableColumn fx:id="name" prefWidth="75.0" text="nome" />
@@ -22,25 +22,26 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Label layoutX="301.0" layoutY="22.0" text="Produtos">
+      <Label layoutX="66.0" layoutY="14.0" text="Produtos">
          <font>
             <Font name="Fira Code Bold" size="31.0" />
          </font>
       </Label>
-      <Button fx:id="buttonNovo" layoutX="310.0" layoutY="415.0" mnemonicParsing="false" onAction="#switchToAddProduct" text="Novo">
+      <Button fx:id="buttonNovo" layoutX="354.0" layoutY="445.0" mnemonicParsing="false" onAction="#switchToAddProduct" text="Novo">
          <graphic>
             <FontIcon iconLiteral="fas-plus" />
          </graphic>
       </Button>
-      <Button fx:id="buttonEdit" layoutX="387.0" layoutY="415.0" mnemonicParsing="false" onAction="#switchToEditProduct" text="Editar">
+      <Button fx:id="buttonEdit" layoutX="431.0" layoutY="445.0" mnemonicParsing="false" onAction="#switchToEditProduct" text="Editar">
          <graphic>
             <FontIcon iconLiteral="fas-edit" />
          </graphic>
       </Button>
-      <Button fx:id="buttonRemove" layoutX="475.0" layoutY="415.0" mnemonicParsing="false" onAction="#removeProduct" text="Remover">
+      <Button fx:id="buttonRemove" layoutX="519.0" layoutY="445.0" mnemonicParsing="false" onAction="#removeProduct" text="Remover">
          <graphic>
             <FontIcon iconLiteral="fas-trash" />
          </graphic>
       </Button>
+      <TextField fx:id="searchBar" layoutX="302.0" layoutY="23.0" prefHeight="30.0" prefWidth="336.0" promptText="Digite para pesquisar..." />
    </children>
 </AnchorPane>

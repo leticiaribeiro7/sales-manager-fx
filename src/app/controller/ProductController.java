@@ -3,10 +3,14 @@ package app.controller;
 import java.io.IOException;
 import java.time.LocalDate;
 
+import app.helpers.Alerts;
 import app.model.ProductDAO;
 import entities.Product;
+import entities.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,11 +19,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class ProductController {
+	
+	@FXML
+	TextField searchBar;
 
 	@FXML
 	TableView<Product> productsTable;
@@ -47,6 +55,7 @@ public class ProductController {
 	@FXML
 	public void initialize(){
 		loadProductsData();
+		enableSearch();
 		
 	}
 	
@@ -85,9 +94,7 @@ public class ProductController {
 			showAddOrEditProduct(product);
 			
 		} else {
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setContentText("Selecione um producte");
-			alert.show();
+			Alerts.alertEdit();
 		}
 	}
 	
@@ -120,6 +127,32 @@ public class ProductController {
 		controller.setProduct(product);
 		controller.setProductsTable(productsTable);
 		dialogStage.showAndWait();
+	}
+	
+	public void enableSearch() {
+		
+		FilteredList<Product> filteredData = new FilteredList<>(obsList, content -> true);
+		
+		
+		searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
+			filteredData.setPredicate(product -> {
+				if (newValue == null || newValue.isEmpty() || newValue.isBlank()) return true;
+				
+				String lowCaseFilter = newValue.toLowerCase();
+				
+				if (product.getName().toLowerCase().indexOf(lowCaseFilter) != -1) return true;
+				if (product.getId().toString().toLowerCase().indexOf(lowCaseFilter) != -1) return true;
+				if (product.getExpiration().toString().toLowerCase().indexOf(lowCaseFilter) != -1) return true;
+				else return false;
+			});
+		});
+		
+		SortedList<Product> sortedData = new SortedList<>(filteredData);
+		
+		sortedData.comparatorProperty().bind(productsTable.comparatorProperty());
+		
+		productsTable.setItems(sortedData);
+		
 	}
 	
 	

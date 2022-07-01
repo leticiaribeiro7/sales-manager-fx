@@ -60,7 +60,9 @@ public class Sale {
 		
 	}
 
-
+	/**
+	 * Sobrecarga de construtor que não recebe parâmetros, para uso na interface gráfica
+	 */
 	public Sale() {
 		this.id = latestId;
 		Sale.latestId++;
@@ -78,6 +80,7 @@ public class Sale {
 	}
 	
 	public void setPrice() {
+		this.price = 0.0; // Zerando valor do atributo antes de calcular o preço
 		for (Order o : orders) {
 			this.price += o.getPrice();
 		}
@@ -110,6 +113,22 @@ public class Sale {
 
 	public void setClient(Client client) {
 		this.client = client;
+	}
+	
+	/**
+	 * Atualiza o inventário de produtos a cada venda realizada.
+	 */
+	public void updateInventory() {
+		for (Order o : orders) {
+			for (Ingredient ing : o.getIngredients()) {
+				
+				Product product = ing.getProduct();
+				Double qtdIngredient = ing.getQuantity();
+				Double qtdFinal = product.getQuantity() - qtdIngredient;
+				
+				product.setQuantity(qtdFinal);
+			}
+		}
 	}
 
 

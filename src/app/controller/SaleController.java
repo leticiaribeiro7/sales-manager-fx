@@ -3,12 +3,15 @@ package app.controller;
 import java.io.IOException;
 import java.time.LocalDate;
 
+import app.helpers.Alerts;
 import app.model.SaleDAO;
 import constants.paymentMethod;
 import entities.Client;
 import entities.Sale;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,11 +20,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class SaleController {
+	
+	@FXML
+	TextField searchBar;
 	
 	@FXML
 	private TableView<Sale> salesTable;
@@ -53,6 +60,7 @@ public class SaleController {
 	@FXML
 	public void initialize(){
 		loadSalesData();
+		enableSearch();
 		
 	}
 	
@@ -92,9 +100,7 @@ public class SaleController {
 			showAddOrEditSale(sale);
 			
 		} else {
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setContentText("Selecione um cliente");
-			alert.show();
+			Alerts.alertEdit();
 		}
 	}
 	
@@ -128,5 +134,35 @@ public class SaleController {
 		controller.setSalesTable(salesTable);
 		dialogStage.showAndWait();
 	}
+	
+	
+	
+	public void enableSearch() {
+		
+		FilteredList<Sale> filteredData = new FilteredList<>(obsList, content -> true);
+		
+		
+		searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
+			filteredData.setPredicate(sale -> {
+				if (newValue == null || newValue.isEmpty() || newValue.isBlank()) return true;
+				
+				String lowCaseFilter = newValue.toLowerCase();
+				
+				if (sale.getDate().toString().toLowerCase().indexOf(lowCaseFilter) != -1) return true;
+				if (sale.getId().toString().toLowerCase().indexOf(lowCaseFilter) != -1) return true;
+				if (sale.getClient().getName().toLowerCase().indexOf(lowCaseFilter) != -1) return true;
+				if (sale.getPaymentMethod().toString().toLowerCase().indexOf(lowCaseFilter) != -1) return true;
+				else return false;
+			});
+		});
+		
+		SortedList<Sale> sortedData = new SortedList<>(filteredData);
+		
+		sortedData.comparatorProperty().bind(salesTable.comparatorProperty());
+		
+		salesTable.setItems(sortedData);
+		
+	}
+	
 
 }

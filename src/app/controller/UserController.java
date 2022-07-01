@@ -1,19 +1,16 @@
 package app.controller;
 
 import java.io.IOException;
-import java.util.List;
 
-import app.model.ClientDAO;
+import app.helpers.Alerts;
 import app.model.UserDAO;
 import entities.Client;
-import entities.Employee;
 import entities.User;
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,11 +20,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class UserController {
+	
+	@FXML
+	TextField searchBar;
 
     @FXML
     private Button buttonEdit;
@@ -62,6 +63,7 @@ public class UserController {
 	@FXML
 	public void initialize(){
 		loadUsersData();
+		search();
 		
 	}
 	
@@ -110,9 +112,7 @@ public class UserController {
 			showAddOrEditUser(user);
 			
 		} else {
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setContentText("Selecione um usuário");
-			alert.show();
+			Alerts.alertEdit();
 		}
     }
     
@@ -133,6 +133,35 @@ public class UserController {
 		controller.setUsersTable(usersTable);
 		dialogStage.showAndWait();
     }
+    
+    
+    
+    
+	public void search() {
+			
+		FilteredList<User> filteredData = new FilteredList<>(obsList, content -> true);
+		
+		
+		searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
+			filteredData.setPredicate(user -> {
+				if (newValue == null || newValue.isEmpty() || newValue.isBlank()) return true;
+				
+				String lowCaseFilter = newValue.toLowerCase();
+				
+				if (user.getName().toLowerCase().indexOf(lowCaseFilter) != -1) return true;
+				if (user.getId().toString().toLowerCase().indexOf(lowCaseFilter) != -1) return true;
+				if (user.getLogin().toLowerCase().indexOf(lowCaseFilter) != -1) return true;
+				else return false;
+			});
+		});
+		
+		SortedList<User> sortedData = new SortedList<>(filteredData);
+		
+		sortedData.comparatorProperty().bind(usersTable.comparatorProperty());
+		
+		usersTable.setItems(sortedData);
+		
+	}
 
 }
 

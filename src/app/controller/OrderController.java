@@ -1,13 +1,16 @@
 package app.controller;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
+import app.helpers.Alerts;
 import app.model.OrderDAO;
 import constants.Category;
 import entities.Order;
+import entities.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -16,11 +19,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class OrderController {
+	
+	@FXML
+	private TextField searchBar;
+	
 	@FXML
     private Button buttonEdit;
 
@@ -53,6 +61,7 @@ public class OrderController {
 	@FXML
 	public void initialize(){
 		loadOrdersData();
+		enableSearch();
 		
 	}
 	
@@ -90,9 +99,7 @@ public class OrderController {
 			showAddOrEditOrder(order);
 			
 		} else {
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setContentText("Selecione um prato");
-			alert.show();
+			Alerts.alertEdit();
 		}
 	}
 	
@@ -126,4 +133,34 @@ public class OrderController {
 		controller.setOrdersTable(ordersTable);
 		dialogStage.showAndWait();
 	}
+	
+	
+	
+	public void enableSearch() {
+		
+		FilteredList<Order> filteredData = new FilteredList<>(obsList, content -> true);
+		
+		
+		searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
+			filteredData.setPredicate(order -> {
+				if (newValue == null || newValue.isEmpty() || newValue.isBlank()) return true;
+				
+				String lowCaseFilter = newValue.toLowerCase();
+				
+				if (order.getName().toLowerCase().indexOf(lowCaseFilter) != -1) return true;
+				if (order.getId().toString().toLowerCase().indexOf(lowCaseFilter) != -1) return true;
+				if (order.getName().toLowerCase().indexOf(lowCaseFilter) != -1) return true;
+				if (order.getCategory().toString().toLowerCase().indexOf(lowCaseFilter) != -1) return true;
+				else return false;
+			});
+		});
+		
+		SortedList<Order> sortedData = new SortedList<>(filteredData);
+		
+		sortedData.comparatorProperty().bind(ordersTable.comparatorProperty());
+		
+		ordersTable.setItems(sortedData);
+		
+	}
+	
 }

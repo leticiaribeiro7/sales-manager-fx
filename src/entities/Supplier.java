@@ -63,6 +63,12 @@ public class Supplier {
 
 
 
+	public Supplier() {
+		this.id = latestId;
+		Supplier.latestId++;
+	}
+
+
 	public String getCnpj() {
 		return cnpj;
 	}

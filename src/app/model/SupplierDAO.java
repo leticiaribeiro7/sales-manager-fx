@@ -68,10 +68,10 @@ public class SupplierDAO{
 	 * @param supplier
 	 * @return fornecedor removido
 	 */
-	public static Supplier remove(int id) {
+	public static Supplier remove(Integer id) {
 		for(Supplier sup : suppliers) {
 			if(sup.getId() == id) {
-				suppliers.remove(id);
+				suppliers.remove(sup);
 				return sup;
 			}
 		}

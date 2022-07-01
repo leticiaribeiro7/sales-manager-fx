@@ -2,29 +2,32 @@ package app.controller;
 
 
 import java.io.IOException;
+
+import app.helpers.Alerts;
 import app.model.ClientDAO;
 import entities.Client;
-import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableCell;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class ClientController {
+	
+	@FXML
+	TextField searchBar;
 
 	@FXML
 	TableView<Client> clientsTable;
@@ -52,6 +55,8 @@ public class ClientController {
 	@FXML
 	public void initialize(){
 		loadClientsData();
+		//Inicializa o método de busca
+		search();
 		
 	}
 	
@@ -90,9 +95,7 @@ public class ClientController {
 			showAddOrEditClient(client);
 			
 		} else {
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setContentText("Selecione um cliente");
-			alert.show();
+			Alerts.alertEdit();
 		}
 	}
 	
@@ -125,6 +128,34 @@ public class ClientController {
 		controller.setClient(client);
 		controller.setClientsTable(clientsTable);
 		dialogStage.showAndWait();
+	}
+	
+	
+	public void search() {
+		
+		FilteredList<Client> filteredData = new FilteredList<>(obsList, content -> true);
+		
+		
+		searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
+			filteredData.setPredicate(client -> {
+				if (newValue == null || newValue.isEmpty() || newValue.isBlank()) return true;
+				
+				String lowCaseFilter = newValue.toLowerCase();
+				
+				if (client.getName().toLowerCase().indexOf(lowCaseFilter) != -1) return true;
+				if (client.getId().toString().toLowerCase().indexOf(lowCaseFilter) != -1) return true;
+				if (client.getEmail().toLowerCase().indexOf(lowCaseFilter) != -1) return true;
+				if (client.getPhone().toLowerCase().indexOf(lowCaseFilter) != -1) return true;
+				else return false;
+			});
+		});
+		
+		SortedList<Client> sortedData = new SortedList<>(filteredData);
+		
+		sortedData.comparatorProperty().bind(clientsTable.comparatorProperty());
+		
+		clientsTable.setItems(sortedData);
+		
 	}
 	
 	

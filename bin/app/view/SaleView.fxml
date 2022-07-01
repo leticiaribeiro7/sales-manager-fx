@@ -4,17 +4,19 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="479.0" prefWidth="701.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.SaleController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="534.0" prefWidth="869.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.SaleController">
    <children>
-      <Label layoutX="295.0" layoutY="25.0" text="Vendas">
+      <Label layoutX="71.0" layoutY="24.0" text="Vendas">
          <font>
-            <Font name="Fira Code Bold" size="28.0" />
+            <Font name="Fira Code Bold" size="31.0" />
          </font>
       </Label>
-      <TableView fx:id="salesTable" layoutX="94.0" layoutY="75.0" prefHeight="335.0" prefWidth="506.0">
+      <TableView fx:id="salesTable" layoutX="95.0" layoutY="117.0" prefHeight="357.0" prefWidth="679.0">
         <columns>
           <TableColumn fx:id="id" prefWidth="75.0" text="id" />
           <TableColumn fx:id="date" prefWidth="75.0" text="data" />
@@ -26,8 +28,18 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button fx:id="buttonEdit" layoutX="450.0" layoutY="434.0" mnemonicParsing="false" onAction="#switchToEditSale" text="Editar" />
-      <Button fx:id="buttonRemove" layoutX="531.0" layoutY="434.0" mnemonicParsing="false" onAction="#removeSale" text="Remover" />
-      <Button fx:id="buttonNovo" layoutX="368.0" layoutY="434.0" mnemonicParsing="false" onAction="#switchToAddSale" text="Novo" />
+      <Button fx:id="buttonEdit" layoutX="492.0" layoutY="481.0" mnemonicParsing="false" onAction="#switchToEditSale" text="Editar">
+         <graphic>
+            <FontIcon iconLiteral="fas-edit" />
+         </graphic></Button>
+      <Button fx:id="buttonRemove" layoutX="583.0" layoutY="481.0" mnemonicParsing="false" onAction="#removeSale" text="Remover">
+         <graphic>
+            <FontIcon iconLiteral="fas-trash" />
+         </graphic></Button>
+      <Button fx:id="buttonNovo" layoutX="410.0" layoutY="481.0" mnemonicParsing="false" onAction="#switchToAddSale" text="Novo">
+         <graphic>
+            <FontIcon iconLiteral="fas-plus" />
+         </graphic></Button>
+      <TextField fx:id="searchBar" layoutX="258.0" layoutY="31.0" prefHeight="30.0" prefWidth="408.0" promptText="Digite para pesquisar..." />
    </children>
 </AnchorPane>

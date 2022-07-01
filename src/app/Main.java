@@ -14,6 +14,7 @@ public class Main extends Application {
 			Parent parent = FXMLLoader.load(getClass().getResource("/app/view/MainView.fxml"));
 			Scene scene = new Scene(parent);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			primaryStage.setResizable(false);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch(Exception e) {

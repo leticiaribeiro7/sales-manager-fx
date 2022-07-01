@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import app.helpers.PdfReportGenerator;
 import app.model.ClientDAO;
 import app.model.OrderDAO;
 import app.model.ProductDAO;
@@ -55,59 +56,73 @@ public class AddOrEditSaleController {
     private Sale sale;
     
 
-    // para a table view
-    private ObservableList<Order> obsOrders = FXCollections.observableArrayList();
+    // Table View orders
+    private ObservableList<Order> tbOrders = FXCollections.observableArrayList();
     
-//    private ObservableList<Ingredient> obsIng;
     private ObservableList<Client> obsClient = FXCollections.observableArrayList(ClientDAO.list());
    
     private ObservableList<paymentMethod> obsPayment= FXCollections.observableArrayList(paymentMethod.values());
     
-    // para combo box
-    private ObservableList<Order> orders = FXCollections.observableArrayList(OrderDAO.list());
+    // Combobox orders
+    private ObservableList<Order> cbOrders = FXCollections.observableArrayList(OrderDAO.list());
 
     @FXML
     public void initialize() {
-    	loadBoxes();
+    	loadInitialData();
     }
-  
-    public void loadBoxes() {
+    
+    /**
+     * Seta coluna da tableview de pratos e insere dados de cliente, pagamento e prato nas comboboxes.
+     */
+    public void loadInitialData() {
  
+    	prato.setCellValueFactory(new PropertyValueFactory<Order, String>("name"));
     	
     	comboBoxClient.setItems(obsClient);
     	
     	comboBoxPayment.setItems(obsPayment);
     	
-    	comboBoxPrato.setItems(orders);
+    	comboBoxPrato.setItems(cbOrders);
     	
     }
-//    
+    /**
+     * Adiciona pedido selecionado na combobox dentro da lista observável da tableview
+     * @return lista observável
+     */
     public ObservableList<Order> loadOrders() {
-		prato.setCellValueFactory(new PropertyValueFactory<Order, String>("name"));
 		
-		obsOrders.add(comboBoxPrato.getValue());
-    	ordersNameTable.setItems(obsOrders);
-    	return obsOrders;
+		tbOrders.add(comboBoxPrato.getValue());
+    	ordersNameTable.setItems(tbOrders);
+    	return tbOrders;
 		
     }
   
     public void onActionAddOrder() {
     	loadOrders();
+    	
+    	sale.setOrders(tbOrders);
+    	
+    	sale.setPrice();
+    	
     	ordersNameTable.refresh();
-    	//labelPrice.setText(sale.getPrice().toString()); //VER COMO RESOLVER AQUI. NAO PODE COMEÇAR SENDO NULL
+    	labelPrice.setText(String.format("%.2f", sale.getPrice()));
     }
+   
     
     public void onActionConfirmar() {
-		sale.setOrders(orders);
-		sale.setPrice();
 		sale.setDate(LocalDate.now()); //data atual do sistema
 		sale.setPaymentMethod(comboBoxPayment.getValue());
 		sale.setClient(comboBoxClient.getValue());
 		
+		sale.updateInventory();
+		
 		SaleDAO.addOrEdit(sale);
-
+		
+		
 		salesTable.refresh();
 		dialogStage.close();
+		PdfReportGenerator.clientPurchase(sale);
+		
     }
     
     public void onActionCancelar() {

@@ -42,6 +42,6 @@
             <FontIcon iconLiteral="fas-trash" />
          </graphic>
       </Button>
-      <TextField layoutX="239.0" layoutY="80.0" prefHeight="30.0" prefWidth="395.0" promptText="Digite para pesquisar..." />
+      <TextField fx:id="searchBar" layoutX="239.0" layoutY="80.0" onAction="#search" prefHeight="30.0" prefWidth="395.0" promptText="Pesquisar por..." />
    </children>
 </AnchorPane>

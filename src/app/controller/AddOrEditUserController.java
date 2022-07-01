@@ -3,6 +3,8 @@ package app.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import app.helpers.PdfReportGenerator;
+import app.model.SaleDAO;
 import app.model.UserDAO;
 import entities.Employee;
 import entities.Manager;

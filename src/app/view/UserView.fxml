@@ -4,24 +4,28 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="824.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.UserController">
    <children>
-      <Label alignment="CENTER" layoutX="326.0" layoutY="29.0" prefHeight="57.0" prefWidth="172.0" text="Usuarios" AnchorPane.rightAnchor="326.0">
+      <Label alignment="CENTER" layoutX="71.0" layoutY="21.0" prefHeight="57.0" prefWidth="172.0" text="Usuarios" AnchorPane.rightAnchor="581.0">
          <font>
             <Font name="Fira Code Bold" size="33.0" />
          </font>
       </Label>
-      <TableView fx:id="usersTable" layoutX="126.0" layoutY="107.0" prefHeight="394.0" prefWidth="566.0" stylesheets="@../application.css">
+      <TableView fx:id="usersTable" layoutX="71.0" layoutY="119.0" prefHeight="402.0" prefWidth="703.0" stylesheets="@../application.css">
         <columns>
           <TableColumn fx:id="id" prefWidth="78.0" text="Id" />
           <TableColumn fx:id="name" prefWidth="179.0" text="Nome" />
             <TableColumn fx:id="login" prefWidth="181.0" text="Login" />
             <TableColumn fx:id="position" prefWidth="131.0" text="Cargo" />
         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
       </TableView>
       <Button fx:id="buttonNovo" layoutX="395.0" layoutY="529.0" mnemonicParsing="false" onAction="#switchToAddUser" text="Novo">
          <graphic>
@@ -38,5 +42,6 @@
             <FontIcon iconLiteral="fas-trash" />
          </graphic>
       </Button>
+      <TextField fx:id="searchBar" layoutX="343.0" layoutY="38.0" prefHeight="0.0" prefWidth="394.0" promptText="Digite para pesquisar..." />
    </children>
 </AnchorPane>
