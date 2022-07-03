@@ -84,7 +84,7 @@ public class PdfReportGenerator {
 			
 			doc.add(table);
 			doc.close();
-			Desktop.getDesktop().open(new File(arq));
+			Runtime.getRuntime().exec(new String[] {"xdg-open", arq});
 			
 			System.out.println("Relatório gerado com sucesso.");
 			
@@ -155,7 +155,7 @@ public class PdfReportGenerator {
 			
 			doc.add(table);
 			doc.close();
-			Desktop.getDesktop().open(new File(arq));
+			Runtime.getRuntime().exec(new String[] {"xdg-open", arq});
 			
 			System.out.println("Relatório gerado com sucesso.");
 			
@@ -215,7 +215,8 @@ public class PdfReportGenerator {
 			
 			doc.add(table);
 			doc.close();
-			Desktop.getDesktop().open(new File(arq));
+			
+			Runtime.getRuntime().exec(new String[] {"xdg-open", arq});
 			
 			System.out.println("Relatório gerado com sucesso.");
 			
@@ -264,15 +265,22 @@ public class PdfReportGenerator {
 			
 			}
 			
+			p = new Paragraph(String.format("Valor Total: %.2f", sale.getPrice()));
+			p.setAlignment(Element.ALIGN_RIGHT);
+			
+			
 			doc.add(table);
+			doc.add(p);
 			doc.close();
 			
-			Desktop.getDesktop().open(new File(arq));
+
+			Runtime.getRuntime().exec(new String[] {"xdg-open", arq});
 			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
 	
 	
 	

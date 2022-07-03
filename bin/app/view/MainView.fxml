@@ -42,7 +42,7 @@
                   <FontIcon iconLiteral="fas-utensils" iconSize="20" />
                </graphic>
             </Button>
-            <Button graphicTextGap="12.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="183.0" text="Relatorios">
+            <Button graphicTextGap="12.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#switchToReports" prefHeight="80.0" prefWidth="183.0" text="Relatorios">
                <graphic>
                   <FontIcon iconLiteral="fas-book" />
                </graphic>
@@ -56,7 +56,7 @@
       </VBox>
       <BorderPane fx:id="mainBorderPane" layoutX="164.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="601.0" prefWidth="685.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="164.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: gralightgrayy;" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
                   <Label layoutX="245.0" layoutY="153.0" text="GERENCIADOR" textAlignment="CENTER" textFill="#3765d0">
                      <font>

@@ -71,6 +71,11 @@ public class MainController implements Initializable {
 	public void switchToSuppliers() {
 		switchScreen("/app/view/SupplierView.fxml");
 	}
+	
+	@FXML
+	public void switchToReports() {
+		switchScreen("/app/view/Reports.fxml");
+	}
 
 
 	@Override
