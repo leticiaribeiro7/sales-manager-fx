@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.AddorEditClientController">
    <children>
@@ -34,5 +35,10 @@
       </GridPane>
       <Button fx:id="buttonConfirmar" layoutX="372.0" layoutY="344.0" mnemonicParsing="false" onAction="#onActionConfirmar" text="Confirmar" />
       <Button fx:id="buttonCancelar" layoutX="478.0" layoutY="344.0" mnemonicParsing="false" onAction="#onActionCancelar" text="Cancelar" />
+      <Label layoutX="192.0" layoutY="35.0" text="Adicionar/Editar">
+         <font>
+            <Font name="Fira Code Bold" size="22.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -59,7 +59,9 @@ public class UserController {
     
 	private ObservableList<User> obsList = FXCollections.observableArrayList();
 
-    
+    /**
+     * Inicializa dados e metodo de busca
+     */
 	@FXML
 	public void initialize(){
 		loadUsersData();
@@ -67,7 +69,10 @@ public class UserController {
 		
 	}
 	
-	// Carrega dados inicializados
+	/**
+	 *  Carrega dados inicializados
+	 * @return obs list
+	 */
 	public ObservableList<User> loadUsersData() {
 		
 		
@@ -86,8 +91,10 @@ public class UserController {
 		return obsList;
 	}
     
-    
-    public void removeUser(ActionEvent event) {
+    /**
+     * Remove usuario mediante confirmação
+     */
+    public void removeUser() {
     	User user = usersTable.getSelectionModel().getSelectedItem();
 		if (user != null) {
 			Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -98,6 +105,11 @@ public class UserController {
 		}
     }
     
+    /**
+     * Manda usuário para view de adicionar
+     * @param event
+     * @throws IOException
+     */
     public void switchToAddUser(ActionEvent event) throws IOException {
     	
     	User user = null;
@@ -105,8 +117,11 @@ public class UserController {
 		loadUsersData();
     }
 
-
-    public void switchToEditUser(ActionEvent event) throws IOException {
+    /**
+     * Pega usuario selecionado e manda para view de edição
+     * @throws IOException
+     */
+    public void switchToEditUser() throws IOException {
 		User user = usersTable.getSelectionModel().getSelectedItem();
 		if (user != null) {
 			showAddOrEditUser(user);
@@ -117,7 +132,11 @@ public class UserController {
     }
     
     
-
+    /**
+     * Abre caixa de dialogo para editar ou adicionar
+     * @param user
+     * @throws IOException
+     */
     public void showAddOrEditUser(User user) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(AddOrEditUserController.class.getResource("/app/view/AddOrEditUser.fxml"));
@@ -136,7 +155,9 @@ public class UserController {
     
     
     
-    
+    /**
+     * Método para busca.
+     */
 	public void search() {
 			
 		FilteredList<User> filteredData = new FilteredList<>(obsList, content -> true);

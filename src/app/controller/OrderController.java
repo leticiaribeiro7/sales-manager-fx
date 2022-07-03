@@ -6,7 +6,6 @@ import app.helpers.Alerts;
 import app.model.OrderDAO;
 import constants.Category;
 import entities.Order;
-import entities.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -58,6 +57,9 @@ public class OrderController {
 	
 	private ObservableList<Order> obsList = FXCollections.observableArrayList();
 	
+	/**
+	 * Inicializa dados e método de busca.
+	 */
 	@FXML
 	public void initialize(){
 		loadOrdersData();
@@ -65,7 +67,10 @@ public class OrderController {
 		
 	}
 	
-	// Carrega dados inicializados
+	/**
+	 * Carrega dados inicializados na tabela.
+	 * @return
+	 */
 	public ObservableList<Order> loadOrdersData() {
 		
 		id.setCellValueFactory(new PropertyValueFactory<Order, Integer>("id"));
@@ -83,16 +88,22 @@ public class OrderController {
 	
 	
 	
-	// Quando clica no botão adicionar
+	/**
+	 * Instancia pedido e abre caixa de diálogo para adicioná-lo na lista.
+	 * @throws IOException
+	 */
 	public void switchToAddOrder() throws IOException{
 		
 		Order order = new Order();
 		showAddOrEditOrder(order);
-		loadOrdersData();
+		loadOrdersData(); // recarrega tabela depois de adicionar
 		
 	}
 	
-	// Quando clica no botão editar
+	/**
+	 * Abre caixa de diálogo para editar pedido selecionado
+	 * @throws IOException
+	 */
 	public void switchToEditOrder() throws IOException {
 		Order order = ordersTable.getSelectionModel().getSelectedItem();
 		if (order != null) {
@@ -103,21 +114,30 @@ public class OrderController {
 		}
 	}
 	
-	//criar classe helper alerta e usar em tds entidades*************
+	/**
+	 * Remove pedido mediante confirmação do usuário
+	 */
     public void removeOrder() {
     	Order order = ordersTable.getSelectionModel().getSelectedItem();
+    	
 		if (order != null) {
 			Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 			alert.setContentText("Tem certeza que quer remover?");
-			alert.showAndWait().filter(response -> response == ButtonType.OK)
+			alert.showAndWait()
+			.filter(response -> response == ButtonType.OK)
 			.ifPresent(response -> OrderDAO.remove(order.getId()));
+			
 			loadOrdersData();
 			
 		}
     }
 	
 	
-	// Mesma caixa de diálogo para adicionar e editar
+	/**
+	 * Abre mesma caixa de diálogo para editar ou adicionar.
+	 * @param order
+	 * @throws IOException
+	 */
 	public void showAddOrEditOrder(Order order) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(AddOrEditOrderController.class.getResource("/app/view/AddOrder.fxml"));
@@ -135,7 +155,9 @@ public class OrderController {
 	}
 	
 	
-	
+	/**
+	 * Método de busca que atualiza dinamicamente.
+	 */
 	public void enableSearch() {
 		
 		FilteredList<Order> filteredData = new FilteredList<>(obsList, content -> true);

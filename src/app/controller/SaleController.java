@@ -57,6 +57,9 @@ public class SaleController {
 	
 	private ObservableList<Sale> obsList = FXCollections.observableArrayList();
 	
+	/**
+	 * Inicializa dados e habilita busca.
+	 */
 	@FXML
 	public void initialize(){
 		loadSalesData();
@@ -64,7 +67,10 @@ public class SaleController {
 		
 	}
 	
-	// Carrega dados inicializados
+	/**
+	 * Carrega dados inicializados
+	 * @return obsList
+	 */
 	public ObservableList<Sale> loadSalesData() {
 		
 		
@@ -84,7 +90,10 @@ public class SaleController {
 	
 	
 	
-	// Quando clica no botão adicionar
+	/**
+	 * Instancia venda e envia pra caixa de dialogo para adicionar uma nova.
+	 * @throws IOException
+	 */
 	public void switchToAddSale() throws IOException{
 		
 		Sale sale = new Sale();
@@ -93,7 +102,10 @@ public class SaleController {
 		
 	}
 	
-	// Quando clica no botão editar
+	/**
+	 * Abre caixa de dialogo para editar venda selecionada pelo usuario
+	 * @throws IOException
+	 */
 	public void switchToEditSale() throws IOException {
 		Sale sale = salesTable.getSelectionModel().getSelectedItem();
 		if (client != null) {
@@ -104,7 +116,7 @@ public class SaleController {
 		}
 	}
 	
-	//criar classe helper alerta e usar em tds entidades*************
+
     public void removeSale() {
     	Sale client = salesTable.getSelectionModel().getSelectedItem();
 		if (client != null) {
@@ -118,7 +130,11 @@ public class SaleController {
     }
 	
 	
-	// Mesma caixa de diálogo para adicionar e editar
+	/**
+	 * Abre caixa de dialogo que serve para editar e adicionar.
+	 * @param sale
+	 * @throws IOException
+	 */
 	public void showAddOrEditSale(Sale sale) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(AddOrEditSaleController.class.getResource("/app/view/AddSale.fxml"));
@@ -136,7 +152,9 @@ public class SaleController {
 	}
 	
 	
-	
+	/**
+	 * Busca uma venda.
+	 */
 	public void enableSearch() {
 		
 		FilteredList<Sale> filteredData = new FilteredList<>(obsList, content -> true);

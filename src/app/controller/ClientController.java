@@ -52,15 +52,20 @@ public class ClientController {
 	
 	private ObservableList<Client> obsList = FXCollections.observableArrayList();
 	
+	/**
+	 * Inicializa dados e método de busca
+	 */
 	@FXML
 	public void initialize(){
 		loadClientsData();
-		//Inicializa o método de busca
 		search();
 		
 	}
 	
-	// Carrega dados inicializados
+	/**
+	 * Carrega dados inicializados
+	 * @return obsList
+	 */
 	public ObservableList<Client> loadClientsData() {
 		
 		
@@ -79,16 +84,22 @@ public class ClientController {
 	
 	
 	
-	// Quando clica no botão adicionar
+	/**
+	 * Instancia cliente e abre caixa de diálogo para adicioná-lo a lista.
+	 * @throws IOException
+	 */
 	public void switchToAddClient() throws IOException{
 		
 		Client client = new Client();
 		showAddOrEditClient(client);
-		loadClientsData();
+		loadClientsData(); //recarrega os dados para atualizar tabela.
 		
 	}
 	
-	// Quando clica no botão editar
+	/**
+	 * Abre caixa de diálogo para editar cliente.
+	 * @throws IOException
+	 */
 	public void switchToEditClient() throws IOException {
 		Client client = clientsTable.getSelectionModel().getSelectedItem();
 		if (client != null) {
@@ -99,7 +110,9 @@ public class ClientController {
 		}
 	}
 	
-	//criar classe helper alerta e usar em tds entidades*************
+	/**
+	 * Remove cliente selecionado mediante confirmação do usuário.
+	 */
     public void removeClient() {
     	Client client = clientsTable.getSelectionModel().getSelectedItem();
 		if (client != null) {
@@ -113,7 +126,11 @@ public class ClientController {
     }
 	
 	
-	// Mesma caixa de diálogo para adicionar e editar
+	/**
+	 * Abre a mesma caixa de dialogo para editar ou adicionar
+	 * @param client
+	 * @throws IOException
+	 */
 	public void showAddOrEditClient(Client client) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(AddorEditClientController.class.getResource("/app/view/AddClient.fxml"));
@@ -130,7 +147,9 @@ public class ClientController {
 		dialogStage.showAndWait();
 	}
 	
-	
+	/**
+	 * Busca cliente atualizando a lista dinamicamente.
+	 */
 	public void search() {
 		
 		FilteredList<Client> filteredData = new FilteredList<>(obsList, content -> true);

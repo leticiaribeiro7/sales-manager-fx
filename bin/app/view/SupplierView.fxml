@@ -36,11 +36,11 @@
             <FontIcon iconLiteral="fas-trash" />
          </graphic>
       </Button>
-      <Label layoutX="87.0" layoutY="48.0" text="Fornecedores">
+      <Label layoutX="62.0" layoutY="48.0" text="Fornecedores">
          <font>
             <Font name="Fira Code Bold" size="28.0" />
          </font>
       </Label>
-      <TextField fx:id="searchBar" layoutX="351.0" layoutY="52.0" prefHeight="30.0" prefWidth="319.0" promptText="Digite para pesquisar..." />
+      <TextField fx:id="searchBar" layoutX="332.0" layoutY="52.0" prefHeight="30.0" prefWidth="319.0" promptText="Digite para pesquisar..." />
    </children>
 </AnchorPane>

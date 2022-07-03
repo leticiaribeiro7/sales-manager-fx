@@ -52,6 +52,9 @@ public class ProductController {
 	
 	private ObservableList<Product> obsList = FXCollections.observableArrayList();
 	
+	/**
+	 * Inicializa dados e habilita busca.
+	 */
 	@FXML
 	public void initialize(){
 		loadProductsData();
@@ -59,7 +62,10 @@ public class ProductController {
 		
 	}
 	
-	// Carrega dados inicializados
+	/**
+	 * Carrega dados inicializados
+	 * @return obsList
+	 */
 	public ObservableList<Product> loadProductsData() {
 		
 		
@@ -78,7 +84,10 @@ public class ProductController {
 	
 	
 	
-	// Quando clica no botão adicionar
+	/**
+	 * Instancia produto e abre caixa de diálogo para adicionar lista.
+	 * @throws IOException
+	 */
 	public void switchToAddProduct() throws IOException{
 		
 		Product product = new Product();
@@ -87,7 +96,10 @@ public class ProductController {
 		
 	}
 	
-	// Quando clica no botão editar
+	/**
+	 * Abre caixa de diálogo para editar produto selecionado.
+	 * @throws IOException
+	 */
 	public void switchToEditProduct() throws IOException {
 		Product product = productsTable.getSelectionModel().getSelectedItem();
 		if (product != null) {
@@ -98,7 +110,9 @@ public class ProductController {
 		}
 	}
 	
-	//criar classe helper alerta e usar em tds entidades*************
+	/**
+	 * Remove produto mediante confirmação do usuário.
+	 */
     public void removeProduct() {
     	Product product = productsTable.getSelectionModel().getSelectedItem();
 		if (product != null) {
@@ -112,7 +126,11 @@ public class ProductController {
     }
 	
 	
-	// Mesma caixa de diálogo para adicionar e editar
+	/**
+	 * Abre a mesma caixa de diálogo para adicionar ou editar)
+	 * @param product
+	 * @throws IOException
+	 */
 	public void showAddOrEditProduct(Product product) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(AddOrEditProductController.class.getResource("/app/view/AddProduct.fxml"));
@@ -129,6 +147,9 @@ public class ProductController {
 		dialogStage.showAndWait();
 	}
 	
+	/**
+	 * Busca um produto.
+	 */
 	public void enableSearch() {
 		
 		FilteredList<Product> filteredData = new FilteredList<>(obsList, content -> true);

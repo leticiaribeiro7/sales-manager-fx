@@ -1,21 +1,15 @@
 package app.controller;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
+import app.helpers.Alerts;
 import app.helpers.PdfReportGenerator;
 import app.model.ClientDAO;
 import app.model.OrderDAO;
-import app.model.ProductDAO;
 import app.model.SaleDAO;
-import constants.Category;
-import constants.UnitOfMeasurement;
 import constants.paymentMethod;
 import entities.Client;
-import entities.Ingredient;
 import entities.Order;
-import entities.Product;
 import entities.Sale;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -39,7 +33,7 @@ public class AddOrEditSaleController {
     private ComboBox<Order> comboBoxPrato;
 
     @FXML
-    private Label labelPrice; //usa settext pra mudar o valor dele
+    private Label labelPrice;
 
     @FXML
     private TableView<Sale> salesTable;
@@ -97,6 +91,9 @@ public class AddOrEditSaleController {
 		
     }
   
+    /**
+     * Atualiza tabela de pedidos ao adicioná-los na venda.
+     */
     public void onActionAddOrder() {
     	loadOrders();
     	
@@ -108,41 +105,71 @@ public class AddOrEditSaleController {
     	labelPrice.setText(String.format("%.2f", sale.getPrice()));
     }
    
-    
+    /**
+     * Confirma a criação da venda.
+     */
     public void onActionConfirmar() {
-		sale.setDate(LocalDate.now()); //data atual do sistema
-		sale.setPaymentMethod(comboBoxPayment.getValue());
-		sale.setClient(comboBoxClient.getValue());
-		
-		sale.updateInventory();
-		
-		SaleDAO.addOrEdit(sale);
-		
-		
-		salesTable.refresh();
-		dialogStage.close();
-		PdfReportGenerator.clientPurchase(sale);
+    	if (validateInput()) {
+    		sale.setDate(LocalDate.now()); //data atual do sistema
+    		sale.setPaymentMethod(comboBoxPayment.getValue());
+    		sale.setClient(comboBoxClient.getValue());
+    		
+    		sale.updateInventory();
+    		
+    		SaleDAO.addOrEdit(sale);
+    		
+    		
+    		salesTable.refresh();
+    		dialogStage.close();
+    		PdfReportGenerator.clientPurchase(sale);
+    		
+    	} else Alerts.alertIncorretInput();
 		
     }
-    
+    /**
+     * Fecha a caixa de dialogo.
+     */
     public void onActionCancelar() {
     	dialogStage.close();
     }
 
-
+    /**
+     * Conexão da caixa de dialogo entre esse controller e o principal
+     * @param dialogStage
+     */
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
 	}
 
-
+	/**
+	 * Conexão da venda entre esse controller e o principal
+	 * @param sale
+	 */
 	public void setSale(Sale sale) {
 		this.sale = sale;
 	}
 
-
+	/**
+	 * Conexão da tabela de vendas entre esse controller e o principal
+	 * @param salesTable
+	 */
 	public void setSalesTable(TableView<Sale> salesTable) {
 		this.salesTable = salesTable;
 		
+	}
+	
+	/**
+	 * Valida entradas do usuario
+	 * @return boolean
+	 */
+	public boolean validateInput() {
+		boolean hasOrders = tbOrders.size() != 0;
+		boolean selectedPM = !comboBoxPayment.getSelectionModel().isEmpty();
+		boolean selectedClient = !comboBoxClient.getSelectionModel().isEmpty();
+		
+		if (hasOrders && selectedPM && selectedClient) return true;
+		
+		return false;
 	}
     
     

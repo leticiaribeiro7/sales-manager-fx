@@ -11,7 +11,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent parent = FXMLLoader.load(getClass().getResource("/app/view/MainView.fxml"));
+			Parent parent = FXMLLoader.load(getClass().getResource("/app/view/LoginView.fxml"));
 			Scene scene = new Scene(parent);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setResizable(false);

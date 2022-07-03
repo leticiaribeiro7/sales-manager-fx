@@ -42,23 +42,26 @@ public class AddOrEditUserController implements Initializable {
     
     private ObservableList<String> comboList = FXCollections.observableArrayList();
     
+    /**
+     * Insere tipos de usuários na lista 
+     */
     public void initialize(URL url, ResourceBundle b) {
-    	comboList.add("Employee");
-    	comboList.add("Manager");
+    	comboList.add("Funcionario");
+    	comboList.add("Gerente");
     	
     	comboBoxUserType.setItems(comboList);
     }
     
-	// Adiciona ou edita cliente quando clica em confirmar
+	/**
+	 * Adiciona ou edita usuário quando clica em confirmar
+	 * 
+	 */
     public void onActionConfirmar() {
-
-    	
-		// pegar oq ta selecionado na combo box
-		// fazer casting do tipo e mandar pro DAO
+		
 		String type = comboBoxUserType.getValue();
 		
-		if (type == "Employee") user = new Employee();
-		else if (type == "Manager") user = new Manager();
+		if (type == "Funcionario") user = new Employee();
+		else if (type == "Gerente") user = new Manager();
 		
 		user.setName(textFieldName.getText());
 		user.setLogin(textFieldLogin.getText());
@@ -70,12 +73,17 @@ public class AddOrEditUserController implements Initializable {
     		
     }
   
-    // Fecha a caixa de dialogo
+    /**
+     *  Fecha a caixa de dialogo
+     */
     public void onActionCancelar() {
     	dialogStage.close();
     }
     
-    
+    /**
+     * Conecta objeto usuario do controller principal para este.
+     * @param user
+     */
 	public void setUser(User user) {
 		if (user != null) {
 			this.user = user;

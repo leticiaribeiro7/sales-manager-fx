@@ -90,7 +90,7 @@ public class Product {
 	}
 
 	public Integer getId() {
-		return id;
+		return this.id;
 	}
 	public Double getQuantity() {
 		return quantity;

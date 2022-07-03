@@ -2,9 +2,10 @@ package app.controller;
 
 import java.time.LocalDate;
 
+import app.helpers.Alerts;
 import app.model.ProductDAO;
-import entities.Client;
 import entities.Product;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -28,9 +29,6 @@ public class AddOrEditProductController {
     @FXML
     private TextField textFieldQuantity;
     
-    
-    
-	ClientController controller;
 
 	private Stage dialogStage;
 	
@@ -38,7 +36,36 @@ public class AddOrEditProductController {
 	
 	private TableView<Product> productsTable;
 
-
+	@FXML
+	public void initialize() {
+		buttonConfirmar.disableProperty().bind(
+			    Bindings.isEmpty(textFieldQuantity.textProperty())
+			    .or(Bindings.isEmpty(textFieldName.textProperty())
+			    )
+			);
+	}
+	
+	
+	/**
+	 * Insere os dados do produto (caso ja tenha) nos campos quando for editar.
+	 * @param product
+	 */
+	public void setProduct(Product product) {
+		this.product = product;
+		this.textFieldName.setText(product.getName());
+		this.textFieldQuantity.setText(product.getQuantity().toString());
+	}
+	/**
+	 * Conecta caixa de dialogo com o controller principal
+	 * @param dialogStage
+	 */
+	public void setDialogStage(Stage dialogStage) {
+		this.dialogStage = dialogStage;
+	}
+	/**
+	 * Conecta tabela de produtos com este controller secundário.
+	 * @param productsTable
+	 */
 	public void setProductsTable(TableView<Product> productsTable) {
 		this.productsTable = productsTable;
 	}
@@ -53,13 +80,12 @@ public class AddOrEditProductController {
 	}
 	
 	
-	
 	/**
-		Adiciona ou edita produto quando clica em confirmar 
+		Adiciona ou edita produto após validações quando clica em confirmar
 	 */
     public void onActionConfirmar() {
 
-    //	if (validateData() == true) {
+    	if (validateInput()) {
     		
     		product.setName(textFieldName.getText());
     		product.setQuantity(Double.parseDouble(textFieldQuantity.getText()));
@@ -69,7 +95,8 @@ public class AddOrEditProductController {
     		productsTable.refresh();
     		dialogStage.close();
     		
-    //	}
+    	}
+    	else Alerts.alertIncorretInput();
     }
   
     /**
@@ -79,23 +106,23 @@ public class AddOrEditProductController {
     	dialogStage.close();
     }
 
-	/**
-	 * Insere os dados do produto (caso ja tenha) nos campos quando for editar
-	 */
 	
-	public void setProduct(Product product) {
-		this.product = product;
-		this.textFieldName.setText(product.getName());
-		this.textFieldQuantity.setText(product.getQuantity().toString());
+    /**
+     * Valida inputs de data e quantidade
+     * @return
+     */
+	public boolean validateInput() {
+		boolean validQtd = textFieldQuantity.getText().chars().allMatch( Character::isDigit ) ||
+				textFieldQuantity.getText() != "0.0";
+		
+		boolean validDate = getDate() instanceof LocalDate;
+		
+		if (validQtd && validDate) {
+			return true;
+		}
+		
+		return false;
 	}
-
-	public void setDialogStage(Stage dialogStage) {
-		this.dialogStage = dialogStage;
-	}
-    
-//	public boolean validateData() {
-//
-//	}
 	
 	
 	

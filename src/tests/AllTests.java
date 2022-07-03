@@ -10,6 +10,7 @@ import org.junit.platform.suite.api.*;
         SupplierDAOTest.class,
         SaleDAOTest.class,
         ProductDAOTest.class,
+        ClientDAOTest.class
 })
 
 public class AllTests {}

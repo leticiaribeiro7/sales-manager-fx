@@ -74,7 +74,9 @@ public class ReportController {
     
    
     
-    
+    /**
+     * Insere radio buttons em grupo e deixa as combo boxes invisiveis 
+     */
     @FXML
     public void initialize() {
     	
@@ -95,7 +97,9 @@ public class ReportController {
     	cbFornec.setVisible(false);
     	
     }
-    
+    /**
+     * Torna combo box visivel de acordo ao botão escolhido
+     */
     @FXML
     public void handleBoxes() {
     	if (vendasPeriodo.isSelected()) {
@@ -131,6 +135,9 @@ public class ReportController {
     	
     }
     
+    /**
+     * Verifica botão selecionado e gera relatório especifico
+     */
     public void gerar() {
     	if (geralVenda.isSelected()) {
     		PdfReportGenerator.salesReport(SaleDAO.list());
@@ -207,7 +214,10 @@ public class ReportController {
     	
     }
     
-    
+    /**
+     * Pega os registros de venda do periodo que usuario escolheu
+     * @return vendas filtradas
+     */
     public List<Sale> handleDates() {
     	LocalDate inicio = dataInicio.getValue();
     	LocalDate fim = dataFim.getValue();

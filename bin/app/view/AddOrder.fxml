@@ -59,8 +59,8 @@
             <ComboBox fx:id="comboBoxMedida" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <Button layoutX="70.0" layoutY="212.0" mnemonicParsing="false" onAction="#onActionAddIngredient" text="Add ingrediente" />
-      <Button layoutX="389.0" layoutY="426.0" mnemonicParsing="false" onAction="#onActionConfirmar" text="Confirmar" />
+      <Button fx:id="btnIngredient" layoutX="70.0" layoutY="212.0" mnemonicParsing="false" onAction="#onActionAddIngredient" text="Add ingrediente" />
+      <Button fx:id="btnConfirm" layoutX="389.0" layoutY="426.0" mnemonicParsing="false" onAction="#onActionConfirmar" text="Confirmar" />
       <Button layoutX="503.0" layoutY="426.0" mnemonicParsing="false" onAction="#onActionCancelar" text="Cancelar" />
       <Label layoutX="254.0" layoutY="14.0" text="Prato">
          <font>

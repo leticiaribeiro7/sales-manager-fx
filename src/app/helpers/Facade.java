@@ -30,8 +30,6 @@ public class Facade {
 		Client client2 = new Client("Cliente2", "987654321", "client2@email.com", "75224466546");
 		ClientDAO.addOrEdit(client1);
 		ClientDAO.addOrEdit(client2);
-		UserDAO.addOrEdit(new Employee("employee", "login1", "123"));
-		UserDAO.addOrEdit(new Manager("manager","login2", "345"));
 		ProductDAO.addOrEdit(new Product("Carne", 25.00,  LocalDate.of(2023, 5, 3), 50.0));
 		
 		List<Order> orderList1 = new ArrayList<>();
@@ -81,5 +79,10 @@ public class Facade {
 		sale1.setClient(client1);
 		SaleDAO.addOrEdit(sale1);
 	
+	}
+	
+	public static void createLogin() {
+		UserDAO.addOrEdit(new Employee("Funcionario1", "login1", "123"));
+		UserDAO.addOrEdit(new Manager("Gerente1","login2", "345"));
 	}
 }

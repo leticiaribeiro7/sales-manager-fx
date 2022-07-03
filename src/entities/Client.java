@@ -9,7 +9,13 @@ public class Client {
 	private String phone;
 	
 	
-	
+	/**
+	 * Construtor
+	 * @param name
+	 * @param cpf
+	 * @param email
+	 * @param phone
+	 */
 	public Client(String name, String cpf, String email, String phone) {
 		this.name = name;
 		this.cpf = cpf;
@@ -19,7 +25,25 @@ public class Client {
 		Client.latestId++;
 	}
 	
+	/**
+	 * Sobrecarga de construtor com id (para edição)
+	 * @param name
+	 * @param cpf
+	 * @param email
+	 * @param phone
+	 * @param id
+	 */
+	public Client(String name, String cpf, String email, String phone, int id) {
+		this.name = name;
+		this.cpf = cpf;
+		this.email = email;
+		this.phone = phone;
+		this.id = id;
+	}
 	
+	/**
+	 * Sobrecarga de construtor vazio (para interface grafica)
+	 */
 	public Client() {
 		this.id = latestId;
 		Client.latestId++;

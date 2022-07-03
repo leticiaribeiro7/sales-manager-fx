@@ -54,7 +54,10 @@ public class SupplierController {
 	private ObservableList<Supplier> obsList;
 	
 	
-	// Carrega dados inicializados
+	/**
+	 *  Carrega dados inicializados
+	 * @return obsList
+	 */
 	public ObservableList<Supplier> loadSuppliersData() {
 		
 		
@@ -69,6 +72,9 @@ public class SupplierController {
 		return obsList;
 	}
 	
+	/**
+	 * Inicializa dados e habilita busca.
+	 */
 	@FXML
 	public void initialize() {
 		loadSuppliersData();
@@ -76,8 +82,11 @@ public class SupplierController {
 	}
 	
 	
-	
-	public void removeSupplier(ActionEvent event) {
+	/**
+	 * Remove fornecedor com confirmação do usuário
+	 * 
+	 */
+	public void removeSupplier() {
     	Supplier supplier = suppliersTable.getSelectionModel().getSelectedItem();
 		if (supplier != null) {
 			Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -87,14 +96,21 @@ public class SupplierController {
 			loadSuppliersData();
 		}
 	}
-	
-	public void switchToAddSupplier(ActionEvent event) throws IOException {
+	/**
+	 * Troca para caixa de diálogo de adicionar fornecedor
+	 * @throws IOException
+	 */
+	public void switchToAddSupplier() throws IOException {
     	Supplier supplier = new Supplier();
 		showAddOrEditSupplier(supplier);
 		loadSuppliersData();
 	}
 
-	public void switchToEditSupplier(ActionEvent event) throws IOException {
+	/**
+	 * Troca para caixa de dialogo de editar fornecedor
+	 * @throws IOException
+	 */
+	public void switchToEditSupplier() throws IOException {
 		Supplier supplier = suppliersTable.getSelectionModel().getSelectedItem();
 		if (supplier != null) {
 			showAddOrEditSupplier(supplier);
@@ -104,7 +120,11 @@ public class SupplierController {
 		}
 	}
 	
-	// Mesma caixa de diálogo para adicionar e editar
+	/**
+	 * Abre a mesma caixa de dialogo para adicionar ou editar
+	 * @param supplier
+	 * @throws IOException
+	 */
 	public void showAddOrEditSupplier(Supplier supplier) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(AddOrEditSupplierController.class.getResource("/app/view/AddSupplier.fxml"));
@@ -121,7 +141,9 @@ public class SupplierController {
 		dialogStage.showAndWait();
 	}
 	
-	
+	/**
+	 * Busca fornecedor
+	 */
 	public void enableSearch() {
 		
 		FilteredList<Supplier> filteredData = new FilteredList<>(obsList, content -> true);

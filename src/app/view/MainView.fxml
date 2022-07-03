@@ -42,14 +42,14 @@
                   <FontIcon iconLiteral="fas-utensils" iconSize="20" />
                </graphic>
             </Button>
-            <Button graphicTextGap="12.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#switchToReports" prefHeight="80.0" prefWidth="183.0" text="Relatorios">
-               <graphic>
-                  <FontIcon iconLiteral="fas-book" />
-               </graphic>
-            </Button>
             <Button graphicTextGap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#switchToSuppliers" prefHeight="31.0" prefWidth="164.0" stylesheets="@../application.css" text="Fornecedores">
                <graphic>
                   <FontIcon iconLiteral="fas-handshake" iconSize="20" />
+               </graphic>
+            </Button>
+            <Button graphicTextGap="12.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#switchToReports" prefHeight="80.0" prefWidth="183.0" text="Relatorios">
+               <graphic>
+                  <FontIcon iconLiteral="fas-book" />
                </graphic>
             </Button>
          </children>
@@ -58,17 +58,12 @@
          <center>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="245.0" layoutY="153.0" text="GERENCIADOR" textAlignment="CENTER" textFill="#3765d0">
+                  <Label layoutX="245.0" layoutY="182.0" text="GERENCIADOR" textAlignment="CENTER" textFill="#3765d0">
                      <font>
                         <Font name="Dyuthi Regular" size="41.0" />
                      </font>
                   </Label>
-                  <Label layoutX="343.0" layoutY="260.0" text="DE" textAlignment="CENTER" textFill="#3765d0">
-                     <font>
-                        <Font name="Dyuthi Regular" size="41.0" />
-                     </font>
-                  </Label>
-                  <Label contentDisplay="BOTTOM" graphicTextGap="50.0" layoutX="295.0" layoutY="362.0" text="VENDAS" textAlignment="CENTER" textFill="#3765d0">
+                  <Label contentDisplay="BOTTOM" graphicTextGap="50.0" layoutX="269.0" layoutY="271.0" text="COMERCIAL" textAlignment="CENTER" textFill="#3765d0">
                      <graphic>
                         <FontIcon iconLiteral="fas-chart-line" iconSize="80" />
                      </graphic>
