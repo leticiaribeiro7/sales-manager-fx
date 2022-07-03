@@ -18,3 +18,4 @@ module SalesManagerFX {
 	opens app.controller to javafx.fxml;
 	
 }
+

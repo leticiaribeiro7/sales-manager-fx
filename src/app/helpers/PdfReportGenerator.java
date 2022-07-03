@@ -84,7 +84,7 @@ public class PdfReportGenerator {
 			
 			doc.add(table);
 			doc.close();
-			Runtime.getRuntime().exec(new String[] {"xdg-open", arq});
+			Runtime.getRuntime().exec(new String[] {"xdg-open", arq}); // essa linha funciona apenas no Linux
 			
 			System.out.println("Relatório gerado com sucesso.");
 			
@@ -110,16 +110,19 @@ public class PdfReportGenerator {
 			PdfWriter.getInstance(doc, new FileOutputStream(arq));
 			doc.open();
 			
-			Paragraph p = new Paragraph("Relatorio vendas");
+			Paragraph p = new Paragraph("Relatorio de Vendas");
 			p.setAlignment(Element.ALIGN_CENTER);
 			p.setSpacingAfter(20);
 			doc.add(p);
 			
 			
-			
 			Paragraph qtd = new Paragraph("Quantidade total de pratos vendidos: " + sales.size());
 			doc.add(qtd);
 			
+			
+			p = new Paragraph("");
+			p.setSpacingAfter(20);
+			doc.add(p);
 			
 			PdfPTable table = new PdfPTable(5);
 			
@@ -180,7 +183,7 @@ public class PdfReportGenerator {
 			PdfWriter.getInstance(doc, new FileOutputStream(arq));
 			doc.open();
 			
-			Paragraph p = new Paragraph("Relatorio estoque");
+			Paragraph p = new Paragraph("Relatorio do Estoque");
 			p.setAlignment(Element.ALIGN_CENTER);
 			p.setSpacingAfter(20);
 			doc.add(p);
@@ -224,7 +227,10 @@ public class PdfReportGenerator {
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * Gera nota do cliente ao finalizar uma venda
+	 * @param sale
+	 */
 	public static void clientPurchase(Sale sale) {
 		Document doc = new Document();
 		String arq = String.format("nota_cliente_%s.pdf", clientCounter);
@@ -234,13 +240,12 @@ public class PdfReportGenerator {
 			PdfWriter.getInstance(doc, new FileOutputStream(arq));
 			doc.open();
 			
-			Paragraph p = new Paragraph("Nota do cliente");
+			Paragraph p = new Paragraph("Nota do Cliente");
 			p.setAlignment(Element.ALIGN_CENTER);
 			p.setSpacingAfter(20);
 			doc.add(p);
 			
-			
-			
+	
 			
 			PdfPTable table = new PdfPTable(3);
 			
@@ -265,9 +270,11 @@ public class PdfReportGenerator {
 			
 			}
 			
-			p = new Paragraph(String.format("Valor Total: %.2f", sale.getPrice()));
-			p.setAlignment(Element.ALIGN_RIGHT);
+
 			
+			p = new Paragraph(String.format("Valor Total: %.2f", sale.getPrice()));
+			p.setAlignment(Element.ALIGN_CENTER);
+			p.setSpacingBefore(20);
 			
 			doc.add(table);
 			doc.add(p);
